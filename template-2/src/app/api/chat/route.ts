@@ -42,6 +42,8 @@ export async function POST(req: Request) {
     const encoder = new TextEncoder();
     const decoder = new TextDecoder();
 
+    let buffer = '';
+
     const stream = new ReadableStream({
       async start(controller) {
         try {
@@ -49,31 +51,50 @@ export async function POST(req: Request) {
             const { done, value } = await reader.read();
             
             if (done) {
+              // Process any remaining data in the buffer
+              if (buffer) {
+                try {
+                  const parsed = JSON.parse(buffer);
+                  controller.enqueue(encoder.encode(`data: ${JSON.stringify(parsed)}\n\n`));
+                } catch (e) {
+                  console.error('Error parsing final buffer:', e);
+                }
+              }
+              controller.enqueue(encoder.encode('data: [DONE]\n\n'));
               controller.close();
               break;
             }
 
             const text = decoder.decode(value);
-            const lines = text.split('\n');
+            buffer += text;
+
+            // Split on newlines, keeping any remainder in the buffer
+            const lines = buffer.split('\n');
+            buffer = lines.pop() || ''; // Keep the last partial line in the buffer
 
             for (const line of lines) {
-              if (line.trim() === '') continue;
-              if (line.trim() === 'data: [DONE]') continue;
+              if (!line.trim()) continue;
 
               let data = line;
               if (line.startsWith('data: ')) {
                 data = line.slice(6);
               }
 
+              if (data === '[DONE]') {
+                controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+                continue;
+              }
+
               try {
                 const parsed = JSON.parse(data);
-                controller.enqueue(encoder.encode(JSON.stringify(parsed) + '\n'));
+                controller.enqueue(encoder.encode(`data: ${JSON.stringify(parsed)}\n\n`));
               } catch (e) {
                 console.error('Error parsing JSON:', e);
               }
             }
           }
         } catch (e) {
+          console.error('Stream error:', e);
           controller.error(e);
         }
       },
