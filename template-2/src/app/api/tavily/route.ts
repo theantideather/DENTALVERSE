@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server';
 
-const TAVILY_API_KEY = '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';
+const TAVILY_API_KEY = process.env.TAVILY_API_KEY;
 const TAVILY_API_URL = 'https://api.tavily.com/search';
+
+if (!TAVILY_API_KEY) {
+  throw new Error('TAVILY_API_KEY is not set in environment variables');
+}
 
 export async function POST(req: Request) {
   try {
@@ -11,56 +15,49 @@ export async function POST(req: Request) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'api-key': TAVILY_API_KEY,
+        'api-key': TAVILY_API_KEY as string,
       },
       body: JSON.stringify({
         query,
-        search_depth: "advanced",
-        max_results: 5,
         include_answer: true,
-        include_raw_content: false,
-        include_images: includeImages ?? false,
-        include_image_descriptions: includeImageDescriptions ?? false,
-        get_raw_content: false,
+        search_depth: "advanced",
         api_key: TAVILY_API_KEY,
+        include_images: includeImages,
+        include_image_descriptions: includeImageDescriptions,
       }),
     });
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
+      const error = await response.json();
       console.error('Tavily API Error Response:', {
         status: response.status,
         statusText: response.statusText,
-        error: errorData
+        error,
       });
-      throw new Error(errorData.message || `API returned ${response.status}: ${response.statusText}`);
+      throw new Error(error.message || 'Failed to get response from Tavily');
     }
 
     const data = await response.json();
-    
-    // Ensure we have results
-    if (!data || (!Array.isArray(data.results) && !data.answer)) {
+
+    if (!data.results) {
       console.error('Invalid Tavily API response:', data);
-      throw new Error('Invalid response format from search API');
+      throw new Error('Invalid response format from Tavily API');
     }
 
-    // If we have an answer but no results, create a result from the answer
-    if (data.answer && (!data.results || data.results.length === 0)) {
-      data.results = [{
+    // Add a source URL for the answer if it exists
+    if (data.answer) {
+      data.results.unshift({
+        title: "AI Generated Answer",
         content: data.answer,
         url: "Generated from Tavily's answer",
-        title: "Direct Answer"
-      }];
+      });
     }
 
     return NextResponse.json(data);
   } catch (error) {
     console.error('Tavily API Error:', error);
     return NextResponse.json(
-      { 
-        error: error instanceof Error ? error.message : 'Failed to fetch search results',
-        details: error instanceof Error ? error.stack : undefined
-      },
+      { error: error instanceof Error ? error.message : 'Failed to process request' },
       { status: 500 }
     );
   }

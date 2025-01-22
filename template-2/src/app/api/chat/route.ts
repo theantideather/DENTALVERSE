@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server';
 
-const DEEPSEEK_API_KEY = 'sk-d718d2aee15c40fcbffdfb37bc99be04';
+const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY;
 const DEEPSEEK_API_URL = 'https://api.deepseek.com/chat/completions';
+
+if (!DEEPSEEK_API_KEY) {
+  throw new Error('DEEPSEEK_API_KEY is not set in environment variables');
+}
 
 // Set response timeout to 30 seconds
 export const maxDuration = 30;
