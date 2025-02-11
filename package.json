@@ -1,9 +1,11 @@
 {
-  "name": "yapsearch",
+  "name": "dentalverse",
   "version": "1.0.0",
   "description": "hello everyone, this is my project DentalVerse.",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
+    "start": "serve .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +18,11 @@
   "bugs": {
     "url": "https://github.com/theantideather/DENTALVERSE/issues"
   },
-  "homepage": "https://github.com/theantideather/DENTALVERSE#readme"
+  "homepage": "https://github.com/theantideather/DENTALVERSE#readme",
+  "dependencies": {
+    "serve": "^14.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
 }
