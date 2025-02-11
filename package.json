@@ -1,0 +1,20 @@
+{
+  "name": "yapsearch",
+  "version": "1.0.0",
+  "description": "hello everyone, this is my project DentalVerse.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theantideather/DENTALVERSE.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theantideather/DENTALVERSE/issues"
+  },
+  "homepage": "https://github.com/theantideather/DENTALVERSE#readme"
+}
