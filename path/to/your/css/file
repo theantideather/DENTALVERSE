@@ -1,0 +1,6 @@
+:root {
+  --arc-background-gradient-color0: #D2F3E5FF; // Light dental green
+  --arc-palette-background: #001E15FF; // Dark background for contrast
+  --arc-palette-focus: #3E8269CE; // Focus color for UI elements
+  --arc-palette-cutoutColor: #1A6545FF; // Cutout color for UI elements
+} 

@@ -1,4 +1,4 @@
-hello everyone, this is my project yapsearch.
+hello everyone, this is my project DentalVerse.
 
 these search and reasoning capabilities will be added to our agent within yapthread (app.yapthread.com). 
 
@@ -9,3 +9,5 @@ follow me (if that's even a feature on this app)
 if there is bad code in here, i did not write it, and send your complaints to support@anthropic.com.
 
 thank you!
+
+Powered by OrocareAI
