@@ -2,9 +2,8 @@
   "name": "dentalverse",
   "version": "1.0.0",
   "description": "hello everyone, this is my project DentalVerse.",
-  "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "echo 'No build step needed'",
     "start": "serve .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
