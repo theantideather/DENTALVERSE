@@ -1,0 +1,3 @@
+[submodule "yapsearch"]
+    path = yapsearch
+    url = https://github.com/rbrown101010/yapsearch.git
