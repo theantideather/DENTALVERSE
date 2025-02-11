@@ -4,11 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DentalVerse - AI-Powered Dental Research Platform</title>
-    <link rel="stylesheet" href="path/to/your/css/file/style.css">
+    <style>
+        :root {
+            --arc-background-gradient-color0: #D2F3E5FF;
+            --arc-palette-background: #001E15FF;
+            --arc-palette-focus: #3E8269CE;
+            --arc-palette-cutoutColor: #1A6545FF;
+        }
+
+        /* Keep your existing styles but update colors */
+        body {
+            background-color: var(--arc-background-gradient-color0);
+        }
+
+        /* ... rest of your existing styles ... */
+    </style>
 </head>
 <body>
-    <h1>Welcome to DentalVerse</h1>
-    <p>Powered by OrocareAI</p>
-    <!-- Add your existing content here -->
+    <div class="container">
+        <h1>Welcome to DentalVerse</h1>
+        <p>Powered by OrocareAI</p>
+        
+        <!-- Search Section -->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search dental research...">
+            <button onclick="search()">Search</button>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters">
+            <select id="specialtyFilter">
+                <option value="">All Specialties</option>
+                <option value="orthodontics">Orthodontics</option>
+                <option value="periodontics">Periodontics</option>
+                <option value="endodontics">Endodontics</option>
+                <option value="oral-surgery">Oral Surgery</option>
+            </select>
+        </div>
+
+        <!-- Results Section -->
+        <div id="searchResults">
+            <!-- Results will be populated here -->
+        </div>
+    </div>
+
+    <script>
+        function search() {
+            const searchTerm = document.getElementById('searchInput').value;
+            const specialty = document.getElementById('specialtyFilter').value;
+            // Add search logic here
+            console.log('Searching for:', searchTerm, 'in specialty:', specialty);
+        }
+    </script>
 </body>
 </html> 
