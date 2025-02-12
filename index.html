@@ -12,12 +12,62 @@
             --arc-palette-cutoutColor: #1A6545FF;
         }
 
-        /* Keep your existing styles but update colors */
         body {
+            font-family: Arial, sans-serif;
             background-color: var(--arc-background-gradient-color0);
+            margin: 0;
+            padding: 20px;
         }
 
-        /* ... rest of your existing styles ... */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: var(--arc-palette-background);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: var(--arc-palette-background);
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"] {
+            width: 70%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid var(--arc-palette-cutoutColor);
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            background-color: var(--arc-palette-cutoutColor);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: var(--arc-palette-focus);
+        }
+
+        select {
+            width: 200px;
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 14px;
+            border: 2px solid var(--arc-palette-cutoutColor);
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -25,34 +75,22 @@
         <h1>Welcome to DentalVerse</h1>
         <p>Powered by OrocareAI</p>
         
-        <!-- Search Section -->
-        <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Search dental research...">
-            <button onclick="search()">Search</button>
-        </div>
-
-        <!-- Filters -->
-        <div class="filters">
-            <select id="specialtyFilter">
-                <option value="">All Specialties</option>
-                <option value="orthodontics">Orthodontics</option>
-                <option value="periodontics">Periodontics</option>
-                <option value="endodontics">Endodontics</option>
-                <option value="oral-surgery">Oral Surgery</option>
-            </select>
-        </div>
-
-        <!-- Results Section -->
-        <div id="searchResults">
-            <!-- Results will be populated here -->
-        </div>
+        <input type="text" id="searchInput" placeholder="Search dental research...">
+        <button onclick="search()">Search</button>
+        
+        <select id="specialtyFilter">
+            <option value="">All Specialties</option>
+            <option value="orthodontics">Orthodontics</option>
+            <option value="periodontics">Periodontics</option>
+            <option value="endodontics">Endodontics</option>
+            <option value="oral-surgery">Oral Surgery</option>
+        </select>
     </div>
 
     <script>
         function search() {
             const searchTerm = document.getElementById('searchInput').value;
             const specialty = document.getElementById('specialtyFilter').value;
-            // Add search logic here
             console.log('Searching for:', searchTerm, 'in specialty:', specialty);
         }
     </script>
